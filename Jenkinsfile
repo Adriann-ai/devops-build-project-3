@@ -12,7 +12,7 @@ pipeline {
                 sh './build.sh'
             }
         }
-        stage('Docker Push to Hub') {
+        stage('Docker Push to DockerHub') {
             steps {
                 withDockerRegistry([credentialsId: 'doc-cred', url: 'https://index.docker.io/v1/']) {
                     sh 'chmod +x deploy.sh'
