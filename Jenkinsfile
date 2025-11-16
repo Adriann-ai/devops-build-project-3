@@ -8,7 +8,7 @@ pipeline {
            ./buld.sh
         }
         stage ('docker push to hub') {
-            ./deploy.sh
+           ./deploy.sh
         }
         stage ()
     }
