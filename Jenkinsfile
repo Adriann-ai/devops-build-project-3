@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Git Checkouts-adrian') {
+        stage('Git Checkouts-adrian-ss') {
             steps {
                 git branch: 'dev', url: 'https://github.com/Adriann-ai/devops-build-project-3.git'
             }
