@@ -5,7 +5,7 @@ pipeline {
 
         stage('Git Checkout') {
             steps {
-                checkout scm
+                cgit branch: 'dev', url: 'https://github.com/Adriann-ai/devops-build-project-3.git'
             }
         }
 
