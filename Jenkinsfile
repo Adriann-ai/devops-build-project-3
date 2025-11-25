@@ -7,10 +7,10 @@ pipeline {
             steps {
                 script {
                     if (env.GIT_BRANCH == "dev") {
-                        sh "chmod +x build/build-dev.sh"
+                        sh "chmod +x build-dev.sh"
                         sh "./build-dev.sh"
                     } else if (env.GIT_BRANCH == "prod") {
-                        sh "chmod +x build/build-prod.sh"
+                        sh "chmod +x build-prod.sh"
                         sh "./build-prod.sh"
                     } else {
                         error "Sorry Branch not supported: ${env.GIT_BRANCH}"
@@ -24,10 +24,10 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'doc-cred', url: 'https://index.docker.io/v1/') {
                         if (env.GIT_BRANCH == "dev") {
-                            sh "chmod +x deploy/deploy-dev.sh"
+                            sh "chmod +x deploy-dev.sh"
                             sh "./deploy-dev.sh"
                         } else if (env.GIT_BRANCH == "prod") {
-                            sh "chmod +x deploy/deploy-prod.sh"
+                            sh "chmod +x deploy-prod.sh"
                             sh "./deploy-prod.sh"
                         }
                     }
