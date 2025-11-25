@@ -35,7 +35,7 @@ pipeline {
             }
         }
 
-        stage('Deploy on Remote Server') {
+        stage('Deploy to Remote Server') {
             steps {
                 script {
                     sshagent(['trend-key']) {
