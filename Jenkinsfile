@@ -6,10 +6,10 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    if (env.GIT_BRANCH == "origin/dev") {
+                    if (env.GIT_BRANCH == "dev") {
                         sh "chmod +x build/build-dev.sh"
                         sh "./build-dev.sh"
-                    } else if (env.GIT_BRANCH == "origin/prod") {
+                    } else if (env.GIT_BRANCH == "prod") {
                         sh "chmod +x build/build-prod.sh"
                         sh "./build-prod.sh"
                     } else {
@@ -23,10 +23,10 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'doc-cred', url: 'https://index.docker.io/v1/') {
-                        if (env.GIT_BRANCH == "origin/dev") {
+                        if (env.GIT_BRANCH == "dev") {
                             sh "chmod +x deploy/deploy-dev.sh"
                             sh "./deploy-dev.sh"
-                        } else if (env.GIT_BRANCH == "origin/prod") {
+                        } else if (env.GIT_BRANCH == "prod") {
                             sh "chmod +x deploy/deploy-prod.sh"
                             sh "./deploy-prod.sh"
                         }
@@ -39,9 +39,9 @@ pipeline {
             steps {
                 script {
                     sshagent(['trend-key']) {
-                        if (env.GIT_BRANCH == "origin/dev") {
+                        if (env.GIT_BRANCH == "dev") {
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 'cd /home/ubuntu/ && docker compose pull && docker compose up -d'"
-                        } else if (env.GIT_BRANCH == "origin/prod") {
+                        } else if (env.GIT_BRANCH == "prod") {
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 'cd /home/ubuntu/ && docker compose pull && docker compose up -d'"
                         }
                     }
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['trend-key']) {
-                        if (env.GIT_BRANCH == "origin/dev") {
+                        if (env.GIT_BRANCH == "dev") {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 '
                             echo "==== Container Status ===="
@@ -62,7 +62,7 @@ pipeline {
                             docker logs --tail 50 reactapp_dev
                             '
                             """
-                        } else if (env.GIT_BRANCH == "origin/prod") {
+                        } else if (env.GIT_BRANCH == "prod") {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 '
                             echo "==== Container Status ===="
@@ -81,7 +81,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['trend-key']) {
-                        if (env.GIT_BRANCH == "origin/dev") {
+                        if (env.GIT_BRANCH == "dev") {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
@@ -91,7 +91,7 @@ pipeline {
                             fi
                             '
                             """
-                        } else if (env.GIT_BRANCH == "origin/prod") {
+                        } else if (env.GIT_BRANCH == "prod") {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
