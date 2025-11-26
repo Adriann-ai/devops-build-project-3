@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Images') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     if (env.GIT_BRANCH == "dev") {
