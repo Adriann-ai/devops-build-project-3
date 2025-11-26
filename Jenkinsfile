@@ -68,9 +68,9 @@ pipeline {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             echo "==== Container Status ===="
-                            docker ps --filter "name=reactapp_dev"
+                            docker ps --filter "name=reactapp_prod"
                             echo "==== Last 50 Logs ===="
-                            docker logs --tail 50 reactapp_dev
+                            docker logs --tail 50 reactapp_prod
                             '
                             """
                         }
