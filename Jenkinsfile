@@ -44,9 +44,9 @@ pipeline {
                 script {
                     sshagent(['trend-key']) {
                         if (env.GIT_BRANCH == "dev") {
-                            sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 'cd /home/ubuntu && docker-compose pull && docker-compose up -d'"
+                            sh "ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 'cd /home/ubuntu && docker-compose pull && docker-compose up -d'"
                         } else if (env.GIT_BRANCH == "prod") {
-                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 'cd /home/ubuntu && docker-compose pull && docker-compose up -d'"
+                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 'cd /home/ubuntu && docker-compose pull && docker-compose up -d'"
                         }
                     }
                 }
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['trend-key']) {
-                        def host = env.GIT_BRANCH == "dev" ? "65.0.87.169" : "13.201.131.251"
+                        def host = env.GIT_BRANCH == "dev" ? "15.207.221.33" : "13.235.91.209"
                         sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@${host} '
                         echo "==== Container Status ===="
