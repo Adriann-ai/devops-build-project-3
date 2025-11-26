@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+    DOCKER_USER = credentials('doc-creds').username
+    DOCKER_PASS = credentials('doc-creds').password
+}
     stages {
 
         stage('Build Docker Image') {
@@ -42,9 +45,7 @@ pipeline {
                         if (env.GIT_BRANCH == "dev") {
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 'cd /home/ubuntu/ && docker-compose pull && docker-compose up -d'"
                         } else if (env.GIT_BRANCH == "main") {
-                            
-                            
-                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 'cd /home/ubuntu/ && docker login -u adreann -p ********  && docker-compose pull && docker-compose up -d'"
+                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 'cd /home/ubuntu/ && docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} && docker-compose pull && docker-compose up -d'"
                         }
                     }
                 }
@@ -68,9 +69,9 @@ pipeline {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             echo "==== Container Status ===="
-                            docker ps --filter "name=reactapp_prod"
+                            docker ps --filter "name=reactapp_dev"
                             echo "==== Last 50 Logs ===="
-                            docker logs --tail 50 reactapp_prod
+                            docker logs --tail 50 reactapp_dev
                             '
                             """
                         }
@@ -87,9 +88,9 @@ pipeline {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
-                                echo "Dev App is healthy ✅"
+                                echo "Dev App is healthy"
                             else
-                                echo "Dev App is NOT healthy ❌"
+                                echo "Dev App is NOT healthy"
                             fi
                             '
                             """
@@ -97,9 +98,9 @@ pipeline {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
-                                echo "Prod App is healthy ✅"
+                                echo "Prod App is healthy"
                             else
-                                echo "Prod App is NOT healthy ❌"
+                                echo "Prod App is NOT healthy"
                             fi
                             '
                             """
