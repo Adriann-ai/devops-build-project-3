@@ -95,7 +95,7 @@ pipeline {
                             """
                         } else if (env.GIT_BRANCH == "main") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209'
+                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
                                 echo "Prod App is healthy ✅"
                             else
