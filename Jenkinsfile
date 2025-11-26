@@ -85,19 +85,19 @@ pipeline {
                             sh """
                             ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
-                                echo "Dev App is healthy ✅"
+                                echo "Dev App is healthy"
                             else
-                                echo "Dev App is NOT healthy ❌"
+                                echo "Dev App is NOT healthy"
                             fi
                             '
                             """
                         } else if (env.GIT_BRANCH == "main") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209'
+                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
-                                echo "Prod App is healthy ✅"
+                                echo "Prod App is healthy"
                             else
-                                echo "Prod App is NOT healthy ❌"
+                                echo "Prod App is NOT healthy"
                             fi
                             '
                             """
