@@ -42,7 +42,7 @@ pipeline {
                         if (env.GIT_BRANCH == "dev") {
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 'cd /home/ubuntu/ && docker-compose pull && docker-compose up -d'"
                         } else if (env.GIT_BRANCH == "main") {
-                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 'cd /home/ubuntu/ && docker-compose pull && docker-compose up -d'"
+                            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 'cd /home/ubuntu/ && docker login -u adreann -p ***** && docker-compose pull && docker-compose up -d'"
                         }
                     }
                 }
