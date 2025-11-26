@@ -65,9 +65,9 @@ pipeline {
                         echo "==== Last 50 Logs ===="
                         docker logs --tail 50 reactapp_dev
                         if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
-                            echo "App is healthy ✅"
+                            echo "App is healthy"
                         else
-                            echo "App is NOT healthy ❌"
+                            echo "App is NOT healthy"
                         fi
                         '
                         """
