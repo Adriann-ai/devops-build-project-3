@@ -83,7 +83,7 @@ pipeline {
                     sshagent(['trend-key']) {
                         if (env.GIT_BRANCH == "dev") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 '
+                            ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 '
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
                                 echo "Dev App is healthy ✅"
                             else
@@ -93,7 +93,7 @@ pipeline {
                             """
                         } else if (env.GIT_BRANCH == "main") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 '
+                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209'
                             if curl -s --head http://localhost:80/ | grep "200 OK" > /dev/null; then
                                 echo "Prod App is healthy ✅"
                             else
