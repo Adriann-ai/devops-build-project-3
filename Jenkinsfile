@@ -55,7 +55,7 @@ pipeline {
                     sshagent(['trend-key']) {
                         if (env.GIT_BRANCH == "dev") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@65.0.87.169 '
+                            ssh -o StrictHostKeyChecking=no ubuntu@15.207.221.33 '
                             echo "==== Container Status ===="
                             docker ps --filter "name=reactapp_dev"
                             echo "==== Last 50 Logs ===="
@@ -64,7 +64,7 @@ pipeline {
                             """
                         } else if (env.GIT_BRANCH == "prod") {
                             sh """
-                            ssh -o StrictHostKeyChecking=no ubuntu@13.201.131.251 '
+                            ssh -o StrictHostKeyChecking=no ubuntu@13.235.91.209 '
                             echo "==== Container Status ===="
                             docker ps --filter "name=reactapp_dev"
                             echo "==== Last 50 Logs ===="
